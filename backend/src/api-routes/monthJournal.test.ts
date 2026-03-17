@@ -122,7 +122,8 @@ describe("monthJournalのテスト", () => {
             mockQuery.mockRejectedValue(new Error("DB error"))
             const res = await request(app).post('/monthJournal/saveThisMonth').send({
                 userId: "testUser",
-                targetDate: "2026-03-01"
+                targetDate: "2026-03-01",
+                isWritten: true
             })
             expect(res.status).toBe(500)
             expect(res.body).toEqual({ error: "server error. cant save this month journal" })

@@ -26,7 +26,7 @@ router.get("/getThisWeek", async (req: Request, res: Response) => {
 router.post("/saveThisWeek", async (req: Request, res: Response) => {
     try {
         const { userId, startDate, endDate, toDo, toDoCheck, toDoImportant, journal, journalCount, journalLastEditTime, summary, isWritten } = req.body
-        if (!userId || !startDate || !endDate) {
+        if (!userId || !startDate || !endDate || !isWritten) {
             return res.status(400).json({ message: "Not enough information"})
         }
         const sql = `
