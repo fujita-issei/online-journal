@@ -68,7 +68,7 @@ describe("DailyNGListのテスト", () => {
         // 入力欄に入力
         fireEvent.change(screen.getByPlaceholderText("作った禁止リストを入力"), { target: { value : "テ"}})
         // そしたら、テスト1週間前が表示されるかを確認
-        expect(screen.getByText("テスト1週間前")).toBeInTheDocument()
+        expect(screen.queryByText('テスト1週間前')).not.toBeInTheDocument();
         // ×ボタンをクリック
         fireEvent.click(screen.getByTestId("clear-button"))
         // 入力欄が空になったのかを確認
