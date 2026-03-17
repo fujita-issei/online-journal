@@ -1,15 +1,4 @@
 services:
-  nginx:
-    image: nginx:latest
-    container_name: reverse-proxy
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/conf:/etc/nginx/conf.d
-    depends_on:
-      - frontend
   backend:
     build:
       context:
@@ -23,3 +12,7 @@ services:
         ./frontend
       dockerfile: 
         Dockerfile.prod
+      args:
+        VITE_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+    ports:
+      - "8000:80"
