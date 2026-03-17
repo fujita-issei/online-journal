@@ -23,6 +23,7 @@ import type { CredentialResponse } from '@react-oauth/google'
 import { setUserId } from "./store/login"
 import { changeColor } from "./store/color"
 import axios from "axios"
+import bgImage from "./assets/loginBgImage.png";
 
 
 function App() {
@@ -89,7 +90,10 @@ function App() {
           </main>
         </div>
         :
-          <div className = "min-h-screen bg-[url('src/assets/loginBgImage.png')] bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center p-4 text-gray-700 font-ZenMaru relative">
+          <div 
+            className = "min-h-screen bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center p-4 text-gray-700 font-ZenMaru relative"
+            style={{ backgroundImage: `url(${bgImage})` }}
+          >
             <div className="absolute inset-0 bg-white/50 backdrop-blur-sm z-0"></div>
             <div className="flex flex-col items-center gap-10 md:gap-14 w-full max-w-2xl z-10 relative">
               <div className = "text-center text-3xl text-gray-600 mx-4">
