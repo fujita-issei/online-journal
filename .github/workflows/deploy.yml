@@ -1,0 +1,53 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main # mainブランチにPushされた時に自動発動
+
+jobs:
+  # ==========================================
+  # 1. CI（テスト自動実行）フェーズ
+  # ==========================================
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install and Test Backend
+        run: |
+          cd backend
+          npm ci
+          npm test -- --run
+
+      - name: Install and Test Frontend
+        run: |
+          cd frontend
+          npm ci
+          npm test -- --run
+
+  # ==========================================
+  # 2. CD（自動デプロイ）フェーズ
+  # ==========================================
+  deploy:
+    needs: test # 上の 'test' が成功した時だけ実行される！
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          script: |
+            cd /apps/online-journal
+            git pull origin main
+            
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml build --no-cache
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
