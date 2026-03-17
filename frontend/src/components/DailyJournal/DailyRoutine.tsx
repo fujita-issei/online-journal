@@ -6,6 +6,7 @@ import axios from "axios"
 import { setRoutineInit } from "../../store/routine"
 import * as wanakana from "wanakana"
 import type { RoutineInitState } from "../../constant/routineInitState"
+import checkJournalWritten from "../../func/checkJournalWritten"
 
 const DailyRoutine = () => {
 
@@ -17,6 +18,7 @@ const DailyRoutine = () => {
     const [filterOpen, setFilterOpen] = useState(false)
     const [routineOpen, setRoutineOpen] = useState<boolean[]>([])
     const navigate = useNavigate()
+    const dailyJournal = useAppSelector((state) => state.dailyJournal)
     const { targetDate, getUpHour, getUpMin, goBedHour, goBedMin, routine, routineCheck, toDoTimeHour, toDoTimeMin, startToDoHour, startToDoMin, endToDoHour, endToDoMin, toDoTimeCheck, toDoList, toDoListCheck, toDoListImportant, importList, importListCheck, addList, addListCheck, journal, journalCount, journalLastEditTime, moneyInvestment, moneyWaste, moneyConsumption, moneyUseSum } = useAppSelector((state) => state.dailyJournal)
     const selectedColor = useAppSelector((state) => state.color.color)
     const { userId } = useAppSelector((state) => state.login)
@@ -78,7 +80,8 @@ const DailyRoutine = () => {
                 moneyInvestment: moneyInvestment,
                 moneyWaste: moneyWaste,
                 moneyConsumption: moneyConsumption,
-                moneyUseSum: moneyUseSum
+                moneyUseSum: moneyUseSum,
+                isWritten: !checkJournalWritten(dailyJournal)
             })
             dispatch(setRoutineInit())
             window.scrollTo(0, 0)
