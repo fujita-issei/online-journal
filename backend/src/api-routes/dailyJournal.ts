@@ -27,7 +27,7 @@ router.get("/getTodayJournal", async (req: Request, res: Response) => {
 router.post("/saveTodayJournal", async (req: Request, res: Response) => {
     try {
         const { userId, targetDate, getUpHour, getUpMin, goBedHour, goBedMin, routine, routineCheck, toDoTimeHour, toDoTimeMin, startToDoHour, startToDoMin, endToDoHour, endToDoMin, toDoTimeCheck, toDoList, toDoListCheck, toDoListImportant, importList, importListCheck, addList, addListCheck, journal, journalCount, journalLastEditTime, moneyInvestment, moneyWaste, moneyConsumption, moneyUseSum, isWritten } = req.body
-        if (!userId || !targetDate || !isWritten) {
+        if (!userId || !targetDate) {
             return res.status(400).json({ message: "userId and targetDate are required"})
         }
         const sql = `

@@ -122,8 +122,7 @@ describe("dailyJournalのテスト", () => {
             mockQuery.mockRejectedValue(new Error("DB error"))
             const res = await request(app).post('/dailyJournal/saveTodayJournal').send({
                 userId: "testUser",
-                targetDate: "2026-03-08",
-                isWritten: true
+                targetDate: "2026-03-08"
             })
             expect(res.status).toBe(500)
             expect(res.body).toEqual({ error: "server error. cant save today journal" })

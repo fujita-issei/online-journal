@@ -26,7 +26,7 @@ router.get("/getThisMonth", async (req: Request, res: Response) => {
 router.post("/saveThisMonth", async (req: Request, res: Response) => {
     try {
         const { userId, targetDate, toDo, toDoCheck, toDoImportant, journal, journalCount, journalLastEditTime, summary, isWritten } = req.body
-        if (!userId || !targetDate || !isWritten) {
+        if (!userId || !targetDate) {
             return res.status(400).json({ message: "Not enough information"})
         }
         const sql = `

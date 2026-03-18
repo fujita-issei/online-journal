@@ -126,8 +126,7 @@ describe("weekJournalのテスト", () => {
             const res = await request(app).post('/weekJournal/saveThisWeek').send({
                 userId: "testUser",
                 startDate: "2026-03-02",
-                endDate: "2026-03-08",
-                isWritten: true
+                endDate: "2026-03-08"
             })
             expect(res.status).toBe(500)
             expect(res.body).toEqual({ error: "server error. cant save this week journal" })
