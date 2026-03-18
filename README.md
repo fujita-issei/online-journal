@@ -172,22 +172,21 @@ updated_at
 
 ## システム構成
 ```
-Client (Browser)
-        │
-        ▼
+Client (Browser / Reactがここで動作)
+  │
+  ▼
 Nginx (Reverse Proxy / HTTPS)
-        │
-        ▼
-Frontend (React + Vite)
-        │
-        ▼
-Backend API (Express / Node.js)
-        │
-        ▼
-Database (MySQL)
+  │
+  ├── [UIの取得] ──▶ Frontend (Nginx / 静的ファイルの配信)
+  │
+  └── [API通信]  ──▶ Backend API (Express / Node.js)
+                       │
+                       ▼
+                     Database (MySQL)
 ```
 
-ユーザーのブラウザ上で動くReactから、Nginxを入り口としてAPIリクエストをバックエンドに振り分けています。
+ユーザーのブラウザ上で動くReactから、Nginxを入り口としてリクエストを送信しています。
+Nginxがリバースプロキシとして機能していて、画面の静的なファイルはfrontendコンテナへ、APIリクエストはbackendコンテナへと振り分けています。
 Docker Composeを使用して、frontend, backend, databaseをコンテナで管理しています。
 
 ## API
