@@ -308,14 +308,14 @@ POST form/save
 
 以下のコマンドで開発環境を起動できます。
 ```
-docker compose --env-file .env.dev -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 ```
 フロントエンド
 http://localhost:5173
 
 ### 本番環境
 ```
-docker compose --env-file .env.prod -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 ```
 
 ## 今後の改善
